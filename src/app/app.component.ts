@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxScannerQrcodeComponent, NgxScannerQrcodeModule, ScannerQRCodeConfig } from 'ngx-scanner-qrcode';
 import { CommonModule } from '@angular/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  private modalService = inject(NgbModal);
 
   title = 'my-angular-project';
   config: ScannerQRCodeConfig = {
