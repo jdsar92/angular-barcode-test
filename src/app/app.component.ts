@@ -36,8 +36,10 @@ export class AppComponent {
     if (this.scanner) {
       if(this.isLoading){
         this.scanner.start();
-        this.devices = this.scanner.devices
-        alert(JSON.stringify(this.devices))
+        this.scanner.devices.subscribe((res:ScannerQRCodeDevice[]) => {
+          alert(JSON.stringify(res))
+        });
+        
       }else{
         this.scanner.stop()
       }      
