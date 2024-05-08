@@ -37,7 +37,7 @@ export class AppComponent {
       if(this.isLoading){
         this.scanner.start();
         this.devices = this.scanner.devices
-        console.log("Devices: ", this.devices)
+        alert(JSON.stringify(this.devices))
       }else{
         this.scanner.stop()
       }      
