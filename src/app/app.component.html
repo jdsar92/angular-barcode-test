@@ -16,7 +16,8 @@
         <!-- start -->
         <button style="width: 200px; height: 100px; background-color: silver" (click)="startScanner()">{{isLoading ? 'Stop' : 'Start'}}</button>
 
-        
+        <span>{{ devices | json }}</span>
+
 </main>
 
 

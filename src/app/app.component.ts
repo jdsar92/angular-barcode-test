@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgxScannerQrcodeComponent, NgxScannerQrcodeModule, ScannerQRCodeConfig } from 'ngx-scanner-qrcode';
+import { NgxScannerQrcodeComponent, NgxScannerQrcodeModule, ScannerQRCodeConfig, ScannerQRCodeDevice } from 'ngx-scanner-qrcode';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,6 +24,7 @@ export class AppComponent {
 
   isLoading=false
   isScannerReady:boolean=false
+  devices:any
 
   @ViewChild(NgxScannerQrcodeComponent) scanner!: NgxScannerQrcodeComponent;
 
@@ -35,6 +36,8 @@ export class AppComponent {
     if (this.scanner) {
       if(this.isLoading){
         this.scanner.start();
+        this.devices = this.scanner.devices
+        console.log("Devices: ", this.devices)
       }else{
         this.scanner.stop()
       }      
