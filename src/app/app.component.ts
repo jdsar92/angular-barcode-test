@@ -16,7 +16,8 @@ export class AppComponent {
   config: ScannerQRCodeConfig = {
     constraints: { 
       video: {
-        width: window.innerWidth
+        width: 1000,
+        height: 500
       }
     },
     isBeep: false
@@ -31,20 +32,18 @@ export class AppComponent {
  
   
 
-  startScanner() {
-    this.isLoading = !this.isLoading
-    if (this.scanner) {
-      if(this.isLoading){
-        this.scanner.start();
-        this.scanner.devices.subscribe((res:ScannerQRCodeDevice[]) => {
-          alert(JSON.stringify(res))
-        });
-        
-      }else{
-        this.scanner.stop()
-      }      
+  public handle(action: any, fn: string): void {
+    // Fix issue #27, #29
+    const playDeviceFacingBack = (devices: any[]) => {
+      // front camera or back camera check here!
+      const device = devices.find(f => (/back|rear|environment/gi.test(f.label))); // Default Back Facing Camera
+      action.playDevice(device ? device.deviceId : devices[0].deviceId);
+    }
+
+    if (fn === 'start') {
+      action[fn](playDeviceFacingBack).subscribe((r: any) => alert(fn + ""+ JSON.stringify(r)));
     } else {
-      console.error('Scanner component not found.');
+      action[fn]().subscribe((r: any) => console.log(fn, r), alert);
     }
   }
   
@@ -57,9 +56,9 @@ export class AppComponent {
   onScannerEvent(event: any) {
     // Handle the (start) event here
     console.log('Scanner event:', event);
-    this.scanner.stop()
+    this.scanner.pause()
 
     alert("Lectura codigo de barras: " +  event[0].value)
-    this.scanner.start()
+    this.scanner.play()
   }
 }
